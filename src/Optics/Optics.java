@@ -2,8 +2,8 @@ package Optics;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
-import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -12,66 +12,77 @@ import Interface.Drawable;
 import MyExtends.MyTextField;
 
 abstract class Optics implements Drawable,Configable,ActionListener,DocumentListener{
-	protected String name;
-	protected double x;
-	protected double y;
+
+	protected OpticsProperty name;
+	protected OpticsProperty x;
+	protected OpticsProperty y;
+
 	protected ConfigList configList;
+	protected ArrayList<ConfigObject> configObjectList;
 
-	JTextField nameField;
-	JTextField xField;
-	JTextField yField;
+	class ConfigObject{
+		public String label;
+		public MyTextField field;
+		public OpticsProperty obj;
+		public ConfigObject(OpticsProperty _obj,String _label,MyTextField _field){
+			obj=_obj;
+			label=_label;
+			field=_field;
+		}
+		public void updateVariable(){
+			obj.updateValue(field.getText());
+		}
+		public void updateField(){
+			field.setText(obj.toString());
+		}
+	}
 
-	public Optics(){
-		name="";
-		x=0;
-		y=0;
-		nameField = new MyTextField(20);
-		nameField.getDocument().addDocumentListener(this);
-		xField = new MyTextField(20);
-		xField.getDocument().addDocumentListener(this);
-		yField = new MyTextField(20);
-		yField.getDocument().addDocumentListener(this);
+	protected void addObject(OpticsProperty obj,String label){
+		MyTextField field = new MyTextField(20,label);
+		field.getDocument().addDocumentListener(this);
+		configObjectList.add(new ConfigObject(obj,label,field));
+	}
+
+	public Optics(String _name,Double _x,Double _y){
+		configList = new ConfigList();
+		configObjectList = new ArrayList<ConfigObject>();
+
+		name=new OpticsProperty(_name);
+		x	=new OpticsProperty(_x);
+		y	=new OpticsProperty(_y);
+
+		addObject(name,"Optics Label");
+		addObject(x,"Position X");
+		addObject(y,"Position Y");
 	}
 
 	@Override
 	public ConfigList getConfigList() {
-		if(configList==null)configList = new ConfigList();
 		configList.clear();
-		nameField.setText(name);
-		configList.addConfig(nameField,"Optics Name");
-		xField.setText(String.valueOf(x));
-		configList.addConfig(xField,"Optics Position X");
-		yField.setText(String.valueOf(y));
-		configList.addConfig(yField,"Optics Position Y");
+		for(int i=0;i<configObjectList.size();i++){
+			ConfigObject config = configObjectList.get(i);
+			config.updateField();
+			configList.addConfig(config.field, config.label);
+		}
 		return configList;
 	}
 
-	@Override
-	public void changedUpdate(DocumentEvent e){
-		if(e.getDocument()==nameField.getDocument()){
-			name = nameField.getText();
-		}
-		if(e.getDocument()==xField.getDocument()){
-			try{
-				x = Double.parseDouble(xField.getText());
-			}catch(Exception exception){}
-		}
-		if(e.getDocument()==yField.getDocument()){
-			try{
-				x = Double.parseDouble(yField.getText());
-			}catch(Exception exception){}
+	public void textUpdate(DocumentEvent e){
+		for(int i=0;i<configObjectList.size();i++){
+			ConfigObject config = configObjectList.get(i);
+			if(e.getDocument()==config.field.getDocument()){
+				config.updateVariable();
+			}
 		}
 	}
+
 	@Override
-	public void insertUpdate(DocumentEvent e) {
-		this.changedUpdate(e);
-	}
+	public void insertUpdate(DocumentEvent e) {textUpdate(e);}
 	@Override
-	public void removeUpdate(DocumentEvent e) {
-		this.changedUpdate(e);
-	}
+	public void removeUpdate(DocumentEvent e) {textUpdate(e);}
 	@Override
-	public void actionPerformed(ActionEvent e) {
-	}
+	public void changedUpdate(DocumentEvent e){textUpdate(e);}
+	@Override
+	public void actionPerformed(ActionEvent e) {}
 
 }

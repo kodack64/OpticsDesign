@@ -13,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 import Interface.Addable;
 import Interface.Drawable;
@@ -26,6 +27,7 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 	Addable addable;
 	Updatable updatable;
 	Pickable pickable;
+	Timer timer;
 
 	JPopupMenu popupMenu;
 	double putX;
@@ -43,6 +45,9 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		itemMap = new HashMap<JMenuItem,OpticsEnum>();
 
 		createPopupMenu();
+
+		timer = new Timer(1000, this);
+		timer.start();
 	}
 
 	private void createPopupMenu(){
@@ -57,11 +62,14 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 
 	@Override
 	public void actionPerformed(ActionEvent e){
+		if(e.getSource()==timer){
+			// only repaint
+		}
 		if(itemMap.containsKey(e.getSource())){
 			addable.addOptics(itemMap.get(e.getSource()),putX,putY);
 			if(updatable!=null)updatable.updateInfo();
-			this.repaint();
 		}
+		this.repaint();
 	}
 
 	@Override
@@ -84,13 +92,12 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 			if(pickable!=null)pickable.pick(e.getX(), e.getY());
 			if(updatable!=null)updatable.updateInfo();
 		}
+		this.repaint();
 	}
-
 	public void setDrawable(Drawable draw){drawable = draw;}
 	public void setAddable(Addable add){addable = add;}
 	public void setUpdatable(Updatable update){updatable = update;}
 	public void setPickable(Pickable pick){pickable=pick;}
-
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	@Override

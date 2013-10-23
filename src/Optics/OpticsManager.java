@@ -27,7 +27,7 @@ public class OpticsManager implements Addable,Pickable,Configable,Drawable{
 	public void pick(int x,int y){
 		double minDist=1000000;
 		for(Optics opt : optics){
-			double dist =Math.hypot(opt.x-x, opt.y-y);
+			double dist =Math.hypot(opt.x.toDouble()-x, opt.y.toDouble()-y);
 			if(minDist>dist){
 				currentTarget=opt;
 				minDist=dist;
@@ -40,6 +40,7 @@ public class OpticsManager implements Addable,Pickable,Configable,Drawable{
 	}
 	@Override
 	public void paint(Graphics g) {
+		drawer.setCurrentTarget(currentTarget);
 		drawer.paint(g);
 	}
 }
