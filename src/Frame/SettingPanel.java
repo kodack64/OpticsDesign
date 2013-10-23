@@ -26,8 +26,10 @@ public class SettingPanel extends JPanel implements Updatable{
 		if(configable!=null){
 			this.removeAll();
 			ConfigList configList = configable.getConfigList();
-			for(int i=0;i<configList.size();i++){
-				this.add(configList.getConfig(i));
+			if(configList!=null){
+				for(int i=0;i<configList.size();i++){
+					this.add(configList.getConfig(i));
+				}
 			}
 		}
 		this.validate();

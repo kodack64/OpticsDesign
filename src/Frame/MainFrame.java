@@ -14,6 +14,7 @@ public class MainFrame extends JFrame{
 	SettingPanel settingPanel;
 	OpticsManager opticsManager;
 	public MainFrame(){
+		this.setTitle("Optics Design");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		graphicPanel = new GraphicPanel();
 		settingPanel = new SettingPanel();

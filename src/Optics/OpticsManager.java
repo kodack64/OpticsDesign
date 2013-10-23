@@ -36,7 +36,8 @@ public class OpticsManager implements Addable,Pickable,Configable,Drawable{
 	}
 	@Override
 	public ConfigList getConfigList() {
-		return currentTarget.getConfigList();
+		if(currentTarget!=null)return currentTarget.getConfigList();
+		else return null;
 	}
 	@Override
 	public void paint(Graphics g) {
