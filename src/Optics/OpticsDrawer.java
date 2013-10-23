@@ -8,6 +8,8 @@ import Interface.Drawable;
 public class OpticsDrawer implements Drawable{
 
 	ArrayList<Optics> optics;
+
+	ArrayList<Laser> laser;
 	public OpticsDrawer(ArrayList<Optics> opt){
 		optics = opt;
 	}
