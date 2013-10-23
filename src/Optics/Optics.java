@@ -63,9 +63,13 @@ abstract class Optics implements Drawable,Configable,ActionListener,DocumentList
 		}
 	}
 	@Override
-	public void insertUpdate(DocumentEvent e) {}
+	public void insertUpdate(DocumentEvent e) {
+		this.changedUpdate(e);
+	}
 	@Override
-	public void removeUpdate(DocumentEvent e) {}
+	public void removeUpdate(DocumentEvent e) {
+		this.changedUpdate(e);
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
 	}

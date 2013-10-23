@@ -34,6 +34,7 @@ public class Laser extends Optics implements ActionListener{
 	public void paint(Graphics g) {
 		int radius=10;
 		g.drawOval((int)x-radius/2,(int)y-radius/2,radius,radius);
+		g.drawString(name, (int)x, (int)y+10);
 	}
 
 	@Override
