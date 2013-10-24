@@ -7,6 +7,12 @@ import javax.swing.JTextField;
  */
 public class MyTextField extends JTextField{
 	public String label;
+
+	/**
+	 * コンストラクタ
+	 * @param size フィールドのサイズ
+	 * @param _label フィールドのラベル
+	 */
 	public MyTextField(int size,String _label){
 		super(size);
 		label=_label;

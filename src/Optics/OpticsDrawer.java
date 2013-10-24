@@ -15,13 +15,19 @@ public class OpticsDrawer implements Drawable{
 
 	BeamSimulator beamSimulator;
 
+	/**
+	 * コンストラクタ
+	 * @param opt 光学系の配列へのポインタ
+	 */
 	public OpticsDrawer(ArrayList<Optics> opt){
 		optics = opt;
 		currentTarget=null;
 		lasers = new ArrayList<Laser>();
 		beamSimulator = new BeamSimulator();
 	}
-	public void setCurrentTarget(Optics opt){currentTarget=opt;}
+	/**
+	 * 描画
+	 */
 	@Override
 	public void paint(Graphics g) {
 		for(Optics opt : optics){
@@ -40,4 +46,5 @@ public class OpticsDrawer implements Drawable{
 		}
 		beamSimulator.simulate();
 	}
+	public void setCurrentTarget(Optics opt){currentTarget=opt;}
 }
