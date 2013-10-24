@@ -7,6 +7,7 @@ import Interface.Addable;
 import Interface.Configable;
 import Interface.Drawable;
 import Interface.Pickable;
+import MyExtends.LabeledComponent;
 
 public class OpticsManager implements Addable,Pickable,Configable,Drawable{
 	ArrayList <Optics> optics;
@@ -35,8 +36,8 @@ public class OpticsManager implements Addable,Pickable,Configable,Drawable{
 		}
 	}
 	@Override
-	public ConfigList getConfigList() {
-		if(currentTarget!=null)return currentTarget.getConfigList();
+	public ArrayList<LabeledComponent> getComponentList() {
+		if(currentTarget!=null)return currentTarget.getComponentList();
 		else return null;
 	}
 	@Override

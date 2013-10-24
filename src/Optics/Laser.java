@@ -9,6 +9,15 @@ public class Laser extends Optics{
 	OpticsProperty beamWaist;
 	OpticsProperty beamWaistPosition;
 
+	/**
+	 * コンストラクタ
+	 * @param _name 名前
+	 * @param _x 配置するX座標
+	 * @param _y 配置するY座標
+	 * @param _angle 出射角
+	 * @param _beamWaist ビームウェスト
+	 * @param _beamWaistPosition ビームウェストとなる箇所の相対位置
+	 */
 	public Laser(String _name,double _x,double _y,double _angle,double _beamWaist,double _beamWaistPosition){
 		super(_name,_x,_y);
 		angle = new OpticsProperty(_angle);
@@ -19,6 +28,9 @@ public class Laser extends Optics{
 		this.addObject(beamWaistPosition, "Beam Waist Position");
 	}
 
+	/**
+	 * 描画
+	 */
 	@Override
 	public void paint(Graphics g) {
 		int radius=20;

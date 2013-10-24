@@ -34,6 +34,9 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 	double putY;
 	HashMap<JMenuItem,OpticsEnum> itemMap;
 
+	/**
+	 * コンストラクタ
+	 */
 	public GraphicPanel(){
 		drawable=null;
 		addable=null;
@@ -44,13 +47,17 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		this.addMouseListener(this);
 		itemMap = new HashMap<JMenuItem,OpticsEnum>();
 
-		createPopupMenu();
+		initPopupMenu();
 
 		timer = new Timer(1000, this);
 		timer.start();
 	}
 
-	private void createPopupMenu(){
+	/**
+	 * ポップアップメニューの構築
+	 * メニューとパーツの対応関係を作成
+	 */
+	private void initPopupMenu(){
 		popupMenu = new JPopupMenu();
 		for(OpticsEnum opt : OpticsEnum.values()){
 			JMenuItem item = new JMenuItem(opt.name());
@@ -60,6 +67,11 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		}
 	}
 
+	/**
+	 * イベントのコールバック処理
+	 * タイマーの場合は定期的な再描画を実行
+	 * ポップアップメニューなら指定されたパーツを追加
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e){
 		if(e.getSource()==timer){
@@ -72,6 +84,9 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		this.repaint();
 	}
 
+	/**
+	 * 画面を塗りつぶした後光学系を描画
+	 */
 	@Override
 	public void paint(Graphics g){
 		super.paint(g);
@@ -81,6 +96,11 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		if(drawable!=null)drawable.paint(g);
 	}
 
+	/**
+	 * クリックされた時の処理
+	 * 左クリックなら最も近いパーツをフォーカス
+	 * 右クリックならポップアップメニューを表示
+	 */
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e)){
