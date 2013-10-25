@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.util.HashMap;
 
 import javax.swing.JMenuItem;
@@ -21,7 +22,7 @@ import Interface.Pickable;
 import Interface.Updatable;
 import Optics.OpticsEnum;
 
-public class GraphicPanel extends JPanel implements MouseListener,ActionListener{
+public class GraphicPanel extends JPanel implements MouseListener,MouseMotionListener,ActionListener{
 
 	Drawable drawable;
 	Addable addable;
@@ -102,7 +103,7 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 	 * 右クリックならポップアップメニューを表示
 	 */
 	@Override
-	public void mouseClicked(MouseEvent e) {
+	public void mousePressed(MouseEvent e) {
 		if(SwingUtilities.isRightMouseButton(e)){
 			putX=e.getX();
 			putY=e.getY();
@@ -114,16 +115,41 @@ public class GraphicPanel extends JPanel implements MouseListener,ActionListener
 		}
 		this.repaint();
 	}
+
+	/**
+	 * クリックされた時の処理
+	 * 左クリックなら最も近いパーツをフォーカス
+	 * 右クリックならポップアップメニューを表示
+	 */
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		if(SwingUtilities.isLeftMouseButton(e)){
+			if(pickable!=null)pickable.move(e.getX(), e.getY());
+			if(updatable!=null)updatable.updateInfo();
+		}
+		this.repaint();
+	}
+	/**
+	 * ドラッグされた際に更新する
+	 */
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		if(SwingUtilities.isLeftMouseButton(e)){
+			if(pickable!=null)pickable.move(e.getX(), e.getY());
+			if(updatable!=null)updatable.updateInfo();
+		}
+		this.repaint();
+	}
+	@Override
+	public void mouseClicked(MouseEvent e) {}
 	public void setDrawable(Drawable draw){drawable = draw;}
 	public void setAddable(Addable add){addable = add;}
 	public void setUpdatable(Updatable update){updatable = update;}
 	public void setPickable(Pickable pick){pickable=pick;}
 	@Override
-	public void mousePressed(MouseEvent e) {}
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	@Override
 	public void mouseEntered(MouseEvent e) {}
 	@Override
 	public void mouseExited(MouseEvent e) {}
+	@Override
+	public void mouseMoved(MouseEvent e) {}
 }

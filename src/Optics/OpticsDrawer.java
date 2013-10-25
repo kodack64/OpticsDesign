@@ -10,7 +10,9 @@ import Interface.Drawable;
 public class OpticsDrawer implements Drawable{
 
 	ArrayList<Optics> optics;
+
 	ArrayList<Laser> lasers;
+	ArrayList<Mirror> mirrors;
 	Optics currentTarget;
 
 	BeamSimulator beamSimulator;
@@ -42,6 +44,9 @@ public class OpticsDrawer implements Drawable{
 		for(Optics opt : optics){
 			if(opt instanceof Laser){
 				lasers.add((Laser)opt);
+			}
+			if(opt instanceof Mirror){
+				mirrors.add((Mirror)opt);
 			}
 		}
 		beamSimulator.simulate();

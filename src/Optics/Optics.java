@@ -80,6 +80,17 @@ abstract class Optics implements Drawable,Configable,ActionListener,DocumentList
 		}
 	}
 
+	/**
+	 * オプティクスを移動しフィールドに反映
+	 */
+	public void move(int px,int py,int lastpx,int lastpy){
+		x.updateValue(String.valueOf(x.toInt()+px-lastpx));
+		y.updateValue(String.valueOf(y.toInt()+py-lastpy));
+		for(int i=0;i<configableComponentList.size();i++){
+			configableComponentList.get(i).updateField();
+		}
+	}
+
 	@Override
 	public void insertUpdate(DocumentEvent e) {textUpdate(e);}
 	@Override

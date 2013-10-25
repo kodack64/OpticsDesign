@@ -7,4 +7,10 @@ public interface Pickable {
 	 * @param y 指定するY座標
 	 */
 	public void pick(int x,int y);
+	/**
+	 * フォーカスしたオプティクスを移動する
+	 * @param x 指定するX座標
+	 * @param y 指定するY座標
+	 */
+	public void move(int x,int y);
 }

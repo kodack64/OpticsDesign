@@ -12,6 +12,9 @@ public class OpticsFactory {
 		if(opt == OpticsEnum.Laser){
 			return CreateLaser(x,y);
 		}
+		if(opt == OpticsEnum.Mirror){
+			return CreateMirror(x,y);
+		}
 		return null;
 	}
 	/**
@@ -22,5 +25,14 @@ public class OpticsFactory {
 	 */
 	static Optics CreateLaser(double x,double y){
 		return new Laser("Laser", x,y,0,0,0);
+	}
+	/**
+	 * ミラーの作成
+	 * @param x 作成するX座標
+	 * @param y 作成するY座標
+	 * @return 作成したレーザーのインスタンス
+	 */
+	static Optics CreateMirror(double x,double y){
+		return new Mirror("Mirror", x,y,0,5);
 	}
 }
